@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gome.dao.master.PictureDao">
+  <resultMap id="BaseResultMap" type="com.gome.domain.Picture">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="ORG" jdbcType="VARCHAR" property="org" />
+    <result column="OENNER" jdbcType="VARCHAR" property="oenner" />
+    <result column="ID_TPYE" jdbcType="VARCHAR" property="idTpye" />
+    <result column="ID_NO" jdbcType="VARCHAR" property="idNo" />
+    <result column="OUT_NO" jdbcType="VARCHAR" property="outNo" />
+    <result column="BRANCHID" jdbcType="VARCHAR" property="branchid" />
+    <result column="IMGNAME" jdbcType="VARCHAR" property="imgname" />
+    <result column="SAVENAME" jdbcType="VARCHAR" property="savename" />
+    <result column="SORTSID" jdbcType="BIGINT" property="sortsid" />
+    <result column="GENEEIC_SORT" jdbcType="VARCHAR" property="geneeicSort" />
+    <result column="MEDIUM_SORT" jdbcType="VARCHAR" property="mediumSort" />
+    <result column="SUBCLASS_SORT" jdbcType="VARCHAR" property="subclassSort" />
+    <result column="UPTIME" jdbcType="TIMESTAMP" property="uptime" />
+    <result column="APP_NO" jdbcType="VARCHAR" property="appNo" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="SYS_NAME" jdbcType="VARCHAR" property="sysName" />
+    <result column="IF_PATCH_BOLT" jdbcType="VARCHAR" property="ifPatchBolt" />
+    <result column="IF_WASTE" jdbcType="VARCHAR" property="ifWaste" />
+    <result column="PIC_FLAG" jdbcType="VARCHAR" property="picFlag" />
+    <result column="K_ID" jdbcType="VARCHAR" property="kId" />
+    <result column="IS_SMALL" jdbcType="VARCHAR" property="isSmall" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, ORG, OENNER, ID_TPYE, ID_NO, OUT_NO, BRANCHID, IMGNAME, SAVENAME, SORTSID, GENEEIC_SORT, 
+    MEDIUM_SORT, SUBCLASS_SORT, UPTIME, APP_NO, REMARK, SYS_NAME, IF_PATCH_BOLT, IF_WASTE, 
+    PIC_FLAG, K_ID, IS_SMALL
+  </sql>
+  <select id="selectByExample" parameterType="com.gome.domain.PictureExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from picture
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  
+  <select id="selectByExample4Page" parameterType="com.gome.domain.PictureExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from picture
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  
+  <select id="selectByIndentify" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM PICTURE
+    WHERE ID<![CDATA[<=]]>102813640 AND K_ID IS NULL AND PIC_FLAG = '1'
+    <if test="sysName != null">
+    	AND SYS_NAME = #{sysName} 
+    </if>
+    LIMIT #{limit}
+  </select>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from picture
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from picture
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gome.domain.PictureExample">
+    delete from picture
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gome.domain.Picture">
+    insert into picture (ID, ORG, OENNER, 
+      ID_TPYE, ID_NO, OUT_NO, 
+      BRANCHID, IMGNAME, SAVENAME, 
+      SORTSID, GENEEIC_SORT, MEDIUM_SORT, 
+      SUBCLASS_SORT, UPTIME, APP_NO, 
+      REMARK, SYS_NAME, IF_PATCH_BOLT, 
+      IF_WASTE, PIC_FLAG, K_ID, 
+      IS_SMALL)
+    values (#{id,jdbcType=BIGINT}, #{org,jdbcType=VARCHAR}, #{oenner,jdbcType=VARCHAR}, 
+      #{idTpye,jdbcType=VARCHAR}, #{idNo,jdbcType=VARCHAR}, #{outNo,jdbcType=VARCHAR}, 
+      #{branchid,jdbcType=VARCHAR}, #{imgname,jdbcType=VARCHAR}, #{savename,jdbcType=VARCHAR}, 
+      #{sortsid,jdbcType=BIGINT}, #{geneeicSort,jdbcType=VARCHAR}, #{mediumSort,jdbcType=VARCHAR}, 
+      #{subclassSort,jdbcType=VARCHAR}, #{uptime,jdbcType=TIMESTAMP}, #{appNo,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{sysName,jdbcType=VARCHAR}, #{ifPatchBolt,jdbcType=VARCHAR}, 
+      #{ifWaste,jdbcType=VARCHAR}, #{picFlag,jdbcType=VARCHAR}, #{kId,jdbcType=VARCHAR}, 
+      #{isSmall,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gome.domain.Picture">
+    insert into picture
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="org != null">
+        ORG,
+      </if>
+      <if test="oenner != null">
+        OENNER,
+      </if>
+      <if test="idTpye != null">
+        ID_TPYE,
+      </if>
+      <if test="idNo != null">
+        ID_NO,
+      </if>
+      <if test="outNo != null">
+        OUT_NO,
+      </if>
+      <if test="branchid != null">
+        BRANCHID,
+      </if>
+      <if test="imgname != null">
+        IMGNAME,
+      </if>
+      <if test="savename != null">
+        SAVENAME,
+      </if>
+      <if test="sortsid != null">
+        SORTSID,
+      </if>
+      <if test="geneeicSort != null">
+        GENEEIC_SORT,
+      </if>
+      <if test="mediumSort != null">
+        MEDIUM_SORT,
+      </if>
+      <if test="subclassSort != null">
+        SUBCLASS_SORT,
+      </if>
+      <if test="uptime != null">
+        UPTIME,
+      </if>
+      <if test="appNo != null">
+        APP_NO,
+      </if>
+      <if test="remark != null">
+        REMARK,
+      </if>
+      <if test="sysName != null">
+        SYS_NAME,
+      </if>
+      <if test="ifPatchBolt != null">
+        IF_PATCH_BOLT,
+      </if>
+      <if test="ifWaste != null">
+        IF_WASTE,
+      </if>
+      <if test="picFlag != null">
+        PIC_FLAG,
+      </if>
+      <if test="kId != null">
+        K_ID,
+      </if>
+      <if test="isSmall != null">
+        IS_SMALL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="org != null">
+        #{org,jdbcType=VARCHAR},
+      </if>
+      <if test="oenner != null">
+        #{oenner,jdbcType=VARCHAR},
+      </if>
+      <if test="idTpye != null">
+        #{idTpye,jdbcType=VARCHAR},
+      </if>
+      <if test="idNo != null">
+        #{idNo,jdbcType=VARCHAR},
+      </if>
+      <if test="outNo != null">
+        #{outNo,jdbcType=VARCHAR},
+      </if>
+      <if test="branchid != null">
+        #{branchid,jdbcType=VARCHAR},
+      </if>
+      <if test="imgname != null">
+        #{imgname,jdbcType=VARCHAR},
+      </if>
+      <if test="savename != null">
+        #{savename,jdbcType=VARCHAR},
+      </if>
+      <if test="sortsid != null">
+        #{sortsid,jdbcType=BIGINT},
+      </if>
+      <if test="geneeicSort != null">
+        #{geneeicSort,jdbcType=VARCHAR},
+      </if>
+      <if test="mediumSort != null">
+        #{mediumSort,jdbcType=VARCHAR},
+      </if>
+      <if test="subclassSort != null">
+        #{subclassSort,jdbcType=VARCHAR},
+      </if>
+      <if test="uptime != null">
+        #{uptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="appNo != null">
+        #{appNo,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="sysName != null">
+        #{sysName,jdbcType=VARCHAR},
+      </if>
+      <if test="ifPatchBolt != null">
+        #{ifPatchBolt,jdbcType=VARCHAR},
+      </if>
+      <if test="ifWaste != null">
+        #{ifWaste,jdbcType=VARCHAR},
+      </if>
+      <if test="picFlag != null">
+        #{picFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="kId != null">
+        #{kId,jdbcType=VARCHAR},
+      </if>
+      <if test="isSmall != null">
+        #{isSmall,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gome.domain.PictureExample" resultType="java.lang.Long">
+    select count(*) from picture
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update picture
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.org != null">
+        ORG = #{record.org,jdbcType=VARCHAR},
+      </if>
+      <if test="record.oenner != null">
+        OENNER = #{record.oenner,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idTpye != null">
+        ID_TPYE = #{record.idTpye,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idNo != null">
+        ID_NO = #{record.idNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.outNo != null">
+        OUT_NO = #{record.outNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.branchid != null">
+        BRANCHID = #{record.branchid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imgname != null">
+        IMGNAME = #{record.imgname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.savename != null">
+        SAVENAME = #{record.savename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sortsid != null">
+        SORTSID = #{record.sortsid,jdbcType=BIGINT},
+      </if>
+      <if test="record.geneeicSort != null">
+        GENEEIC_SORT = #{record.geneeicSort,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mediumSort != null">
+        MEDIUM_SORT = #{record.mediumSort,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subclassSort != null">
+        SUBCLASS_SORT = #{record.subclassSort,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uptime != null">
+        UPTIME = #{record.uptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.appNo != null">
+        APP_NO = #{record.appNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null">
+        REMARK = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sysName != null">
+        SYS_NAME = #{record.sysName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ifPatchBolt != null">
+        IF_PATCH_BOLT = #{record.ifPatchBolt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ifWaste != null">
+        IF_WASTE = #{record.ifWaste,jdbcType=VARCHAR},
+      </if>
+      <if test="record.picFlag != null">
+        PIC_FLAG = #{record.picFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.kId != null">
+        K_ID = #{record.kId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isSmall != null">
+        IS_SMALL = #{record.isSmall,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update picture
+    set ID = #{record.id,jdbcType=BIGINT},
+      ORG = #{record.org,jdbcType=VARCHAR},
+      OENNER = #{record.oenner,jdbcType=VARCHAR},
+      ID_TPYE = #{record.idTpye,jdbcType=VARCHAR},
+      ID_NO = #{record.idNo,jdbcType=VARCHAR},
+      OUT_NO = #{record.outNo,jdbcType=VARCHAR},
+      BRANCHID = #{record.branchid,jdbcType=VARCHAR},
+      IMGNAME = #{record.imgname,jdbcType=VARCHAR},
+      SAVENAME = #{record.savename,jdbcType=VARCHAR},
+      SORTSID = #{record.sortsid,jdbcType=BIGINT},
+      GENEEIC_SORT = #{record.geneeicSort,jdbcType=VARCHAR},
+      MEDIUM_SORT = #{record.mediumSort,jdbcType=VARCHAR},
+      SUBCLASS_SORT = #{record.subclassSort,jdbcType=VARCHAR},
+      UPTIME = #{record.uptime,jdbcType=TIMESTAMP},
+      APP_NO = #{record.appNo,jdbcType=VARCHAR},
+      REMARK = #{record.remark,jdbcType=VARCHAR},
+      SYS_NAME = #{record.sysName,jdbcType=VARCHAR},
+      IF_PATCH_BOLT = #{record.ifPatchBolt,jdbcType=VARCHAR},
+      IF_WASTE = #{record.ifWaste,jdbcType=VARCHAR},
+      PIC_FLAG = #{record.picFlag,jdbcType=VARCHAR},
+      K_ID = #{record.kId,jdbcType=VARCHAR},
+      IS_SMALL = #{record.isSmall,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gome.domain.Picture">
+    update picture
+    <set>
+      <if test="org != null">
+        ORG = #{org,jdbcType=VARCHAR},
+      </if>
+      <if test="oenner != null">
+        OENNER = #{oenner,jdbcType=VARCHAR},
+      </if>
+      <if test="idTpye != null">
+        ID_TPYE = #{idTpye,jdbcType=VARCHAR},
+      </if>
+      <if test="idNo != null">
+        ID_NO = #{idNo,jdbcType=VARCHAR},
+      </if>
+      <if test="outNo != null">
+        OUT_NO = #{outNo,jdbcType=VARCHAR},
+      </if>
+      <if test="branchid != null">
+        BRANCHID = #{branchid,jdbcType=VARCHAR},
+      </if>
+      <if test="imgname != null">
+        IMGNAME = #{imgname,jdbcType=VARCHAR},
+      </if>
+      <if test="savename != null">
+        SAVENAME = #{savename,jdbcType=VARCHAR},
+      </if>
+      <if test="sortsid != null">
+        SORTSID = #{sortsid,jdbcType=BIGINT},
+      </if>
+      <if test="geneeicSort != null">
+        GENEEIC_SORT = #{geneeicSort,jdbcType=VARCHAR},
+      </if>
+      <if test="mediumSort != null">
+        MEDIUM_SORT = #{mediumSort,jdbcType=VARCHAR},
+      </if>
+      <if test="subclassSort != null">
+        SUBCLASS_SORT = #{subclassSort,jdbcType=VARCHAR},
+      </if>
+      <if test="uptime != null">
+        UPTIME = #{uptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="appNo != null">
+        APP_NO = #{appNo,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="sysName != null">
+        SYS_NAME = #{sysName,jdbcType=VARCHAR},
+      </if>
+      <if test="ifPatchBolt != null">
+        IF_PATCH_BOLT = #{ifPatchBolt,jdbcType=VARCHAR},
+      </if>
+      <if test="ifWaste != null">
+        IF_WASTE = #{ifWaste,jdbcType=VARCHAR},
+      </if>
+      <if test="picFlag != null">
+        PIC_FLAG = #{picFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="kId != null">
+        K_ID = #{kId,jdbcType=VARCHAR},
+      </if>
+      <if test="isSmall != null">
+        IS_SMALL = #{isSmall,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gome.domain.Picture">
+    update picture
+    set ORG = #{org,jdbcType=VARCHAR},
+      OENNER = #{oenner,jdbcType=VARCHAR},
+      ID_TPYE = #{idTpye,jdbcType=VARCHAR},
+      ID_NO = #{idNo,jdbcType=VARCHAR},
+      OUT_NO = #{outNo,jdbcType=VARCHAR},
+      BRANCHID = #{branchid,jdbcType=VARCHAR},
+      IMGNAME = #{imgname,jdbcType=VARCHAR},
+      SAVENAME = #{savename,jdbcType=VARCHAR},
+      SORTSID = #{sortsid,jdbcType=BIGINT},
+      GENEEIC_SORT = #{geneeicSort,jdbcType=VARCHAR},
+      MEDIUM_SORT = #{mediumSort,jdbcType=VARCHAR},
+      SUBCLASS_SORT = #{subclassSort,jdbcType=VARCHAR},
+      UPTIME = #{uptime,jdbcType=TIMESTAMP},
+      APP_NO = #{appNo,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      SYS_NAME = #{sysName,jdbcType=VARCHAR},
+      IF_PATCH_BOLT = #{ifPatchBolt,jdbcType=VARCHAR},
+      IF_WASTE = #{ifWaste,jdbcType=VARCHAR},
+      PIC_FLAG = #{picFlag,jdbcType=VARCHAR},
+      K_ID = #{kId,jdbcType=VARCHAR},
+      IS_SMALL = #{isSmall,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

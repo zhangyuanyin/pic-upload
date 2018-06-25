@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <script type="text/javascript" th:src="@{https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js}"></script>
+        <link th:href="@{https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet"/>
+        <link th:href="@{/css/default.css}" rel="stylesheet"/>
+        <link rel="icon" th:href="@{/images/favicon.ico}" type="image/x-icon"/>
+        <meta charset="UTF-8"/>
+        <title>图片展示</title>
+    </head>
+
+<body>
+	<div class="contentDiv">
+
+		<!-- <th:block th:each="i:${#numbers.sequence(0,5)}">
+			<div class="swiper-slide" style="height: 290px;">
+				<ul>
+					<th:block th:each="k:${#numbers.sequence(0,6)}">
+						<th:block th:if="${#lists.size(scanurls) gt k+(i*7)}">
+							<li>
+								<img th:src="${scanurls[k+(i*7)]}" height="200px" width="250px" />
+							</li>
+						</th:block>
+					</th:block>
+				</ul>
+			</div>
+		</th:block> -->
+	
+		
+		<table class="table table-hover table-condensed">
+			<legend>
+				<strong>文件</strong>
+				<span style="float:right;"><a class="btn btn-primary" th:href="@{/pictures/find/list/{appNo}(appNo=${appNo})}">返回</a></span>
+			</legend>
+			<tbody>
+				<tr th:each="url : ${scanurls}">
+					<img th:src="${url}" height="200px" width="200px" />
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <script type="text/javascript" th:src="@{https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js}"></script>
+        <link th:href="@{https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet"/>
+        <link th:href="@{/css/default.css}" rel="stylesheet"/>
+        <link rel="icon" th:href="@{/images/favicon.ico}" type="image/x-icon"/>
+        <meta charset="UTF-8"/>
+        <title>图片信息</title>
+    </head>
+
+    <body>
+
+        <div class="contentDiv">
+            <table class="table table-hover table-condensed">
+                <legend>
+                    <strong>信息列表</strong>
+                </legend>
+                <thead>
+                    <tr>
+                        <th>编号</th>
+                        <th>名称</th>
+                        <th>进件号</th>
+                        <th>图片类型</th>
+                        <th>系统</th>
+                        <th>存储标识</th>
+                        <th>KID</th>
+                        <th>管理</th>
+                    </tr>
+                </thead>
+                <tbody>
+                	<tr th:each="picture : ${pictures}">
+						<th scope="row" th:text="${picture.id}"></th>
+                        <td><a th:href="${picture.scanUrl}" th:text="${picture.imgname}"></a></td>
+                        <td><a th:href="@{/pictures/show/list/{appNo}(appNo=${picture.appNo})}" th:text="${picture.appNo}"></a></td>
+                        <td th:text="${picture.subclassSort}"></td>
+                        <td th:text="${picture.sysName}"></td>
+                        <td th:switch="${picture.picFlag}">
+						  <p th:case="1">GFS</p>
+						  <p th:case="*">FASTDFS</p>
+						</td>
+                        <td th:text="${picture.kId}"></td>
+                        <td><a class="btn btn-primary" th:href="@{/pictures/show/one/{id}(id=${picture.id})}">查看</a></td>
+					</tr>
+                </tbody>
+            </table>
+            <div id="page" url="/userlist" ></div>
+			<div th:replace="page :: page"></div>
+        </div>
+    </body>
+</html>
